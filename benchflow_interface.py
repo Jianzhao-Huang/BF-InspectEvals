@@ -10,7 +10,10 @@ from benchflow.schemas import BenchArgs, BenchmarkResult
 
 class InspectEvalBench(BaseBench):
     def get_args(self, task_id: str) -> BenchArgs:
-        return BenchArgs(None)
+        arguments = {
+            "required": ["BENCHMARK_NAME"],
+        }
+        return BenchArgs(arguments)
 
     def get_image_name(self) -> str:
         return "huangjianzhao/benchflow:inspect_evals"
