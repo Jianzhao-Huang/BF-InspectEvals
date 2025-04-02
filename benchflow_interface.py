@@ -20,9 +20,10 @@ class InspectEvalBench(BaseBench):
         return "/app/logs"
 
     def get_log_files_dir_in_container(self) -> str:
-        return "/app/logs" # Useless
+        return "/app/tmp" # Useless
 
     def get_result(self, task_id: str) -> BenchmarkResult:
+        # TODO: do not import inspect_ai
         try:
             for eval_log in list_eval_logs(self.get_results_dir_in_container()):
                 for sample in read_eval_log(eval_log.name).samples:
