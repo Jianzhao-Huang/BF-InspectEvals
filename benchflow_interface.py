@@ -27,10 +27,10 @@ class InspectEvalBench(BaseBench):
     def get_result(self, task_id: str) -> BenchmarkResult:
         # TODO: do not import inspect_ai
         try:
-            for log_file in os.listdir(self.get_results_dir_in_container()):
+            for log_file in os.listdir(self.results_dir):
                 if not log_file.endswith('.json'):
                     continue
-                with open(os.path.join(self.get_results_dir_in_container(), log_file)) as f:
+                with open(os.path.join(self.results_dir, log_file)) as f:
                     eval_data = json.load(f)
                     for sample in eval_data['samples']:
                         if sample['id'] == (int(task_id) + 1):
@@ -56,10 +56,10 @@ class InspectEvalBench(BaseBench):
         
     def get_all_tasks(self, split: str) -> Dict[str, Any]:
         # self.run_bench(0, "", {})
-        for log_file in os.listdir(self.get_results_dir_in_container()):
+        for log_file in os.listdir(self.results_dir):
             if not log_file.endswith('.json'):
                 continue
-            with open(os.path.join(self.get_results_dir_in_container(), log_file)) as f:
+            with open(os.path.join(self.results_dir, log_file)) as f:
                 eval_log = json.load(f)
                 break
         return {"task_ids": [str(i) for i in range(eval_log["eval"]["dataset"]["samples"])], "error_message": ""}
